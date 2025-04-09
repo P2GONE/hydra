@@ -65,14 +65,19 @@ get-lkl: build-img-sys
 		git clone https://github.com/sslab-gatech/lkl.git $(LKL_DIR); \
 	fi
 
-get-llvm: 
+# 14 버전으로 최신화
+get-llvm:
 	if [ ! -d "$(LLVM_DIR)" ]; then \
-		wget http://releases.llvm.org/$(LLVM_VERSION)/$(LLVM_SRC).tar.xz && tar xf $(LLVM_SRC).tar.xz && rm $(LLVM_SRC).tar.xz; \
-		mv $(LLVM_SRC) $(LLVM_DIR); \
-		cd $(LLVM_DIR)/tools && wget http://releases.llvm.org/$(LLVM_VERSION)/$(CLANG_SRC).tar.xz && tar xf $(CLANG_SRC).tar.xz && rm $(CLANG_SRC).tar.xz; \
-		mv $(CLANG_SRC) clang; \
+		wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LLVM_VERSION)/$(LLVM_SRC).tar.xz && \
+		tar xf $(LLVM_SRC).tar.xz && rm $(LLVM_SRC).tar.xz; \
+		mv llvm-$(LLVM_VERSION).src $(LLVM_DIR); \
+		cd $(LLVM_DIR)/tools && \
+		wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LLVM_VERSION)/$(CLANG_SRC).tar.xz && \
+		tar xf $(CLANG_SRC).tar.xz && rm $(CLANG_SRC).tar.xz; \
+		mv clang-$(LLVM_VERSION).src clang; \
 		cd ../..; \
 	fi
+
 
 build-btrfs-imgwrp: build-lkl-btrfs
 	make -C $(BTRFS_IMGWRP_DIR)

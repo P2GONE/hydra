@@ -25,9 +25,10 @@ CLANG     := $(LLVM_BLD)/bin/clang
 CLANG_CPP := $(LLVM_BLD)/bin/clang++
 LLVM_CONF := $(LLVM_BLD)/bin/llvm-config
 
-LLVM_VERSION := 7.0.1
+# 14 버전으로 최신화
+LLVM_VERSION := 14.0.6
 LLVM_SRC     := llvm-$(LLVM_VERSION).src
-CLANG_SRC    := cfe-$(LLVM_VERSION).src
+CLANG_SRC    := clang-$(LLVM_VERSION).src
 
 ifeq ($(strip $(NJOB)), )
   NJOB := ${shell nproc}
